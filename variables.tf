@@ -1,17 +1,21 @@
 variable "domain_name" {
-  type = "string"
+  description = "Domain name for which to create a zone"
+  type        = "string"
 }
 
 variable "admin_email" {
-  type = "string"
+  description = "Email used for SOA record"
+  type        = "string"
 }
 
 variable "delegation_set_id" {
-  type = "string"
+  description = "Delegation set ID to reuse"
+  type        = "string"
 }
 
 variable "caa_list" {
-  type = "list"
+  description = "List of issuers allowed to sign certificates for this zone (defaults to AWS ACM)"
+  type        = "list"
 
   default = [
     "amazon.com",
@@ -19,7 +23,8 @@ variable "caa_list" {
 }
 
 variable "mx_list" {
-  type = "list"
+  description = "MX record list (defaults to Google Apps MX list)"
+  type        = "list"
 
   default = [
     "1   aspmx.l.google.com.",
@@ -31,7 +36,8 @@ variable "mx_list" {
 }
 
 variable "spf_list" {
-  type = "list"
+  description = "SPF record list (defaults to Google Apps)"
+  type        = "list"
 
   default = [
     "v=spf1 a include:_spf.google.com ~all",
