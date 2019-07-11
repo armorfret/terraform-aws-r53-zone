@@ -17,11 +17,13 @@ resource "aws_route53_record" "caa" {
   type    = "CAA"
   ttl     = "86400"
 
-  records = [
-    "${formatlist("0 issue \"%s\"", var.caa_list)}",
-    "0 issuewild \";\"",
-    "${format("0 iodef \"mailto:%s\"", var.admin_email)}",
-  ]
+  records = concat(
+    formatlist("0 issue \"%s\"", var.caa_list),
+    [
+      "0 issuewild \";\"",
+      format("0 iodef \"mailto:%s\"", var.admin_email),
+    ],
+  )
 
   count = "${length(var.caa_list) == 0 ? 0 : 1}"
 }
@@ -32,7 +34,7 @@ resource "aws_route53_record" "mx" {
   type    = "MX"
   ttl     = "86400"
 
-  records = ["${var.mx_list}"]
+  records = "${var.mx_list}"
 }
 
 resource "aws_route53_record" "spf" {
@@ -40,7 +42,7 @@ resource "aws_route53_record" "spf" {
   name    = "${var.domain_name}"
   type    = "SPF"
   ttl     = "86400"
-  records = ["${var.spf_list}"]
+  records = "${var.spf_list}"
 }
 
 resource "aws_route53_record" "txt" {
@@ -48,5 +50,5 @@ resource "aws_route53_record" "txt" {
   name    = "${var.domain_name}"
   type    = "TXT"
   ttl     = "86400"
-  records = ["${var.spf_list}"]
+  records = "${var.spf_list}"
 }
