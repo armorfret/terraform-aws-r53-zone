@@ -4,11 +4,12 @@ resource "aws_route53_zone" "this" {
 }
 
 resource "aws_route53_record" "soa" {
-  zone_id = "${aws_route53_zone.this.zone_id}"
-  name    = "${var.domain_name}"
-  type    = "SOA"
-  ttl     = "86400"
-  records = ["${aws_route53_zone.this.name_servers.0}. ${replace(var.admin_email, "@", ".")}. 1 7200 900 1209600 3600"]
+  zone_id         = "${aws_route53_zone.this.zone_id}"
+  name            = "${var.domain_name}"
+  type            = "SOA"
+  ttl             = "86400"
+  records         = ["${aws_route53_zone.this.name_servers.0}. ${replace(var.admin_email, "@", ".")}. 1 7200 900 1209600 3600"]
+  allow_overwrite = true
 }
 
 resource "aws_route53_record" "caa" {
