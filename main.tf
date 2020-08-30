@@ -7,13 +7,13 @@ terraform {
 }
 
 resource "aws_route53_zone" "this" {
-  delegation_set_id = "${var.delegation_set_id}"
-  name              = "${var.domain_name}"
+  delegation_set_id = var.delegation_set_id
+  name              = var.domain_name
 }
 
 resource "aws_route53_record" "soa" {
-  zone_id         = "${aws_route53_zone.this.zone_id}"
-  name            = "${var.domain_name}"
+  zone_id         = aws_route53_zone.this.zone_id
+  name            = var.domain_name
   type            = "SOA"
   ttl             = "86400"
   records         = ["${aws_route53_zone.this.name_servers.0}. ${replace(var.admin_email, "@", ".")}. 1 7200 900 1209600 3600"]
@@ -21,8 +21,8 @@ resource "aws_route53_record" "soa" {
 }
 
 resource "aws_route53_record" "caa" {
-  zone_id = "${aws_route53_zone.this.zone_id}"
-  name    = "${var.domain_name}"
+  zone_id = aws_route53_zone.this.zone_id
+  name    = var.domain_name
   type    = "CAA"
   ttl     = "86400"
 
@@ -34,30 +34,30 @@ resource "aws_route53_record" "caa" {
     ],
   )
 
-  count = "${length(var.caa_list) == 0 ? 0 : 1}"
+  count = length(var.caa_list) == 0 ? 0 : 1
 }
 
 resource "aws_route53_record" "mx" {
-  zone_id = "${aws_route53_zone.this.zone_id}"
-  name    = "${var.domain_name}"
+  zone_id = aws_route53_zone.this.zone_id
+  name    = var.domain_name
   type    = "MX"
   ttl     = "86400"
 
-  records = "${var.mx_list}"
+  records = var.mx_list
 }
 
 resource "aws_route53_record" "spf" {
-  zone_id = "${aws_route53_zone.this.zone_id}"
-  name    = "${var.domain_name}"
+  zone_id = aws_route53_zone.this.zone_id
+  name    = var.domain_name
   type    = "SPF"
   ttl     = "86400"
-  records = "${var.spf_list}"
+  records = var.spf_list
 }
 
 resource "aws_route53_record" "txt" {
-  zone_id = "${aws_route53_zone.this.zone_id}"
-  name    = "${var.domain_name}"
+  zone_id = aws_route53_zone.this.zone_id
+  name    = var.domain_name
   type    = "TXT"
   ttl     = "86400"
-  records = "${var.spf_list}"
+  records = var.spf_list
 }
