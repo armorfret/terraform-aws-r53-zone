@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    aws = {
+      version = "3.4.0"
+    }
+  }
+}
+
 resource "aws_route53_zone" "this" {
   delegation_set_id = "${var.delegation_set_id}"
   name              = "${var.domain_name}"
