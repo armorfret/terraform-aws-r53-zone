@@ -15,7 +15,7 @@ variable "delegation_set_id" {
 
 variable "caa_list" {
   description = "List of issuers allowed to sign certificates for this zone (defaults to AWS ACM)"
-  type        = list
+  type        = list(any)
 
   default = [
     "amazon.com",
@@ -24,7 +24,7 @@ variable "caa_list" {
 
 variable "mx_list" {
   description = "MX record list (defaults to Google Apps MX list)"
-  type        = list
+  type        = list(any)
 
   default = [
     "1   aspmx.l.google.com.",
@@ -37,7 +37,7 @@ variable "mx_list" {
 
 variable "spf_list" {
   description = "SPF record list (defaults to Google Apps)"
-  type        = list
+  type        = list(any)
 
   default = [
     "v=spf1 a include:_spf.google.com ~all",
