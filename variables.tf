@@ -27,11 +27,7 @@ variable "mx_list" {
   type        = list(any)
 
   default = [
-    "1   aspmx.l.google.com.",
-    "5   alt1.aspmx.l.google.com.",
-    "5   alt2.aspmx.l.google.com.",
-    "10  alt3.aspmx.l.google.com.",
-    "10  alt4.aspmx.l.google.com.",
+    "1 smtp.google.com.",
   ]
 }
 
@@ -40,7 +36,7 @@ variable "spf_list" {
   type        = list(any)
 
   default = [
-    "v=spf1 a include:_spf.google.com ~all",
+    "v=spf1 a include:_spf.google.com -all",
   ]
 }
 
@@ -49,6 +45,13 @@ variable "dkim_config" {
   type        = string
 
   default = ""
+}
+
+variable "dkim_prefix" {
+  description = "DKIM record prefix"
+  type        = string
+
+  default = "google"
 }
 
 variable "dmarc_address" {

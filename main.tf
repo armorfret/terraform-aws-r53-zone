@@ -47,14 +47,6 @@ resource "aws_route53_record" "mx" {
   records = var.mx_list
 }
 
-resource "aws_route53_record" "spf" {
-  zone_id = aws_route53_zone.this.zone_id
-  name    = var.domain_name
-  type    = "SPF"
-  ttl     = "86400"
-  records = var.spf_list
-}
-
 resource "aws_route53_record" "txt" {
   zone_id = aws_route53_zone.this.zone_id
   name    = var.domain_name
@@ -65,7 +57,7 @@ resource "aws_route53_record" "txt" {
 
 resource "aws_route53_record" "dkim" {
   zone_id = aws_route53_zone.this.zone_id
-  name    = "google._domainkey"
+  name    = "${var.dkim_prefix}._domainkey"
   type    = "TXT"
   ttl     = "3600"
   records = [join(
