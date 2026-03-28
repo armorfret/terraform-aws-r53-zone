@@ -43,3 +43,17 @@ variable "spf_list" {
     "v=spf1 a include:_spf.google.com ~all",
   ]
 }
+
+variable "dkim_config" {
+  description = "DKIM configuration string"
+  type        = string
+
+  default = ""
+}
+
+variable "dmarc_address" {
+  description = "DMARC report address"
+  type        = strng
+
+  default = ""
+}
