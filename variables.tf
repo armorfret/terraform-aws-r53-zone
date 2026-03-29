@@ -56,7 +56,7 @@ variable "dkim_prefix" {
 
 variable "dmarc_address" {
   description = "DMARC report address"
-  type        = strng
+  type        = string
 
   default = ""
 }
