@@ -63,8 +63,8 @@ resource "aws_route53_record" "dkim" {
   records = [join(
     "\"\"",
     [
-      substr(local.dkim_config, 0, 255),
-      substr(local.dkim_config, 255, -1),
+      substr(var.dkim_config, 0, 255),
+      substr(var.dkim_config, 255, -1),
     ],
   )]
 
@@ -77,7 +77,7 @@ resource "aws_route53_record" "dmarc" {
   type    = "TXT"
   ttl     = "86400"
   records = [
-    "v=DMARC1; p=reject; rua=mailto:${var.dmarc_address}; ruf=mailto:${var.dmarc_address}; fo=1; pct=100; aspf=s; adkim=s"
+    "v=DMARC1; p=reject; rua=mailto:${var.dmarc_email}; ruf=mailto:${var.dmarc_email}; fo=1; pct=100; aspf=s; adkim=s"
   ]
 
   count = length(var.dmarc_address) > 0 ? 1 : 0

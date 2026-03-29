@@ -54,7 +54,7 @@ variable "dkim_prefix" {
   default = "google"
 }
 
-variable "dmarc_address" {
+variable "dmarc_email" {
   description = "DMARC report address"
   type        = string
 
