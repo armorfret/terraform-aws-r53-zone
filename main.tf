@@ -80,5 +80,5 @@ resource "aws_route53_record" "dmarc" {
     "v=DMARC1; p=reject; rua=mailto:${var.dmarc_email}; ruf=mailto:${var.dmarc_email}; fo=1; pct=100; aspf=s; adkim=s"
   ]
 
-  count = length(var.dmarc_address) > 0 ? 1 : 0
+  count = length(var.dmarc_email) > 0 ? 1 : 0
 }
